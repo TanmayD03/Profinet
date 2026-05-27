@@ -1,0 +1,10 @@
+{
+  "iface": "\\Device\\NPF_{5F0A0BED-FF5A-49AF-BF8A-3EA3896BD971}",
+  "station": "tesys-tera-pn",
+  "module_id": 1,
+  "sc": 32,
+  "rr": 16,
+  "timeout": 10.0,
+  "device_ip": "",
+  "auto_recon": true
+}
