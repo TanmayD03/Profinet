@@ -158,7 +158,7 @@ def _rpc_connect_payload(ar_uuid: uuid.UUID, session_key: int,
     def iocr(itype, iref, fid, dlen):
         b  = struct.pack("!HH", 0x0102, 36-4)
         b += struct.pack("!BB", 1, 0)
-        b += struct.pack("!HHHIHHHHHHIH",
+        b += struct.pack("!HHH I H H H H H H",
                          itype, iref, _PN_ETYPE, 0, dlen+2, fid,
                          sc, rr, 1, 0)
         b += struct.pack("!I", 0xFFFFFFFF)
@@ -175,12 +175,8 @@ def _rpc_connect_payload(ar_uuid: uuid.UUID, session_key: int,
     ocr = iocr(2, 2, 0x8002, out_len)
 
     # ExpectedSubmoduleBlockReq
-    esm  = struct.pack("!HH", 0x0104, 24-4)
-    esm += struct.pack("!BB", 1, 0)
-    esm += struct.pack("!HIIIHHIIHHHHb",
-                       1, 0x00000000, slot, mod_ident, 0,
-                       1, subslot, sm_ident, 0,
-                       0x0001, in_len, 0x0002, out_len, _IOPS_GOOD)
+    esm_data = struct.pack("!H I", 1, 0) + struct.pack("!H I H", slot, mod_ident, 0) + struct.pack("!H H I H", 1, subslot, sm_ident, 0) + struct.pack("!H H B B", 1, in_len, 1, _IOPS_GOOD) + struct.pack("!H H B B", 2, out_len, 1, _IOPS_GOOD)
+    esm = struct.pack("!HHBB", 0x0104, len(esm_data), 1, 0) + esm_data
     return ar + icr + ocr + esm
 
 
