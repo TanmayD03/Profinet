@@ -1,0 +1,1294 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+/* $Revision:: 1121                                                         $*/
+-->
+<ISO15745Profile xmlns="http://www.profibus.com/GSDML/2003/11/DeviceProfile" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.profibus.com/GSDML/2003/11/DeviceProfile ..\xsd\GSDML-DeviceProfile-V2.43.xsd">
+  	<ProfileHeader>
+    		<ProfileIdentification>PROFINET Device Profile</ProfileIdentification>
+    		<ProfileRevision>1.00</ProfileRevision>
+    		<ProfileName>Device Profile for PROFINET Devices</ProfileName>
+    		<ProfileSource>PROFIBUS Nutzerorganisation e. V. (PNO)</ProfileSource>
+    		<ProfileClassID>Device</ProfileClassID>
+    		<ISO15745Reference>
+      		<ISO15745Part>4</ISO15745Part>
+      		<ISO15745Edition>1</ISO15745Edition>
+      		<ProfileTechnology>GSDML</ProfileTechnology>
+    		</ISO15745Reference>
+  	</ProfileHeader>
+  	
+  	<ProfileBody>
+    		<DeviceIdentity VendorID="0x0129" DeviceID="0x0701">
+      			<InfoText TextId="TOK_DevIdent_InfoText"/>
+      			<VendorName Value="Schneider Electric"/>
+    		</DeviceIdentity>
+    		<DeviceFunction>
+      			<Family MainFamily="General" ProductFamily="Tesys Tera"/>
+    		</DeviceFunction>
+    		<ApplicationProcess>
+      			<DeviceAccessPointList>
+      			
+    				<!-- DAP with Two Ports (TeSys Tera PROFINET IO Device AC Variant) --> 
+    				<DeviceAccessPointItem ID="DAP_LTMTPNFM2" FixedInSlots="0" PhysicalSlots="0..1" ModuleIdentNumber="0x10100000" DNS_CompatibleName="tesys-tera-pn" ImplementationType="Texas Instrument" ObjectUUID_LocalIndex="1" DeviceAccessSupported="true" LLDP_NoD_Supported="true" ResetToFactoryModes="2" MultipleWriteSupported="true" NameOfStationNotTransferable="true"  PNIO_Version="V2.43" MinDeviceInterval="512"	 IO_SupervisorSupported="false" NumberOfDeviceAccessAR="1" CheckDeviceID_Allowed="true" PrmBeginPrmEndSequenceSupported="true">  
+					<!--                                                    -->
+					<!-- TeSys Tera PROFINET IO Device -->
+					<!--                                                    -->
+					<ModuleInfo>
+						<Name TextId="TID_NAME_LTMTPNFM"/>
+						<InfoText TextId="TID_INFO_LTMTPNFM2"/>
+						<VendorName Value="Schneider Electric"/>
+						<OrderNumber Value="LTMTPNFM"/>
+						<HardwareRelease Value="1" />				<!-- To be Updated if version modified -->
+						<SoftwareRelease Value="V2.0.21" />		<!-- To be Updated if version modified -->
+					</ModuleInfo>
+      					<CertificationInfo ConformanceClass="B" ApplicationClass="" NetloadClass="II"/>
+					<SubslotList>
+						<SubslotItem TextId="PDEV_X1" SubslotNumber="32768" />
+						<SubslotItem TextId="PDEV_X1_P1" SubslotNumber="32769" />
+						<SubslotItem TextId="PDEV_X1_P2" SubslotNumber="32770" />
+					</SubslotList>
+      					<IOConfigData MaxInputLength="512" MaxOutputLength="512" MaxDataLength="1024"/>
+      					<UseableModules>
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="1" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="2" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="3" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="4" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="5" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="6" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="7" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="8" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="9" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="10" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="11" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="12" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="13" />
+      					</UseableModules>
+      					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="DAP_LTMTPNFM2" SubmoduleIdentNumber="0x10110000" MayIssueProcessAlarm="true">
+							<IOData />
+							<ModuleInfo>
+								<Name TextId="T_ID_DAP_LTMTPNFM" />
+								<InfoText TextId="T_ID_DEV_DESCRIPTION" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+					<SystemDefinedSubmoduleList>
+						<InterfaceSubmoduleItem ID="IDS_1I_LTMTPNFM2" TextId="Interface PN" SubslotNumber="32768" PTP_BoundarySupported="true" DCP_BoundarySupported="true" DCP_HelloSupported="false" SupportedProtocols="LLDP;SNMP" SupportedRT_Classes="RT_CLASS_1" SubmoduleIdentNumber="0x10110001" NetworkComponentDiagnosisSupported="false" PDEV_CombinedObjectSupported="true" Writeable_IM_Records="1 2 3">
+							<ApplicationRelations StartupMode="Advanced;Legacy" NumberOfAR="2" NumberOfAdditionalInputCR="0" NumberOfAdditionalMulticastProviderCR="0" NumberOfAdditionalOutputCR="0" NumberOfMulticastConsumerCR="0">
+								<TimingProperties SendClock="8 16 32 64 128" ReductionRatio="1 2 4 8 16 32 64 128 256 512"/>	
+							</ApplicationRelations>	
+							<MediaRedundancy SupportedRole="Client" MRPD_Supported="false" MRT_Supported="false" AdditionalProtocolsSupported="false"/>
+						</InterfaceSubmoduleItem>
+						<PortSubmoduleItem ID="IDS_1P1_LTMTPNFM2" TextId="TOK_DAP_PDEV_PORT1_SUBMODULE" MAUTypes="16" SubslotNumber="32769" SubmoduleIdentNumber="0x10110002" CheckMAUTypeSupported="true" PortDeactivationSupported="true" LinkStateDiagnosisCapability="Up+Down" SupportsRingportConfig="false" IsDefaultRingport="true">
+						 	<MAUTypeList>
+								<MAUTypeItem Value="16" AdjustSupported="true"/>
+							</MAUTypeList>
+						</PortSubmoduleItem>
+						<PortSubmoduleItem ID="IDS_1P2_LTMTPNFM2" TextId="TOK_DAP_PDEV_PORT2_SUBMODULE" MAUTypes="16" SubslotNumber="32770" SubmoduleIdentNumber="0x10110002" CheckMAUTypeSupported="true" PortDeactivationSupported="true" LinkStateDiagnosisCapability="Up+Down" SupportsRingportConfig="false" IsDefaultRingport="true">
+						 	<MAUTypeList>
+								<MAUTypeItem Value="16" AdjustSupported="true"/>
+							</MAUTypeList>
+						</PortSubmoduleItem>
+          				</SystemDefinedSubmoduleList>
+					<Graphics>
+						<GraphicItemRef Type="DeviceSymbol" GraphicItemTarget="1"/>
+					</Graphics>
+      					<SystemRedundancy  MaxSwitchOverTime="500" DeviceType="S2" DeviceTypes="S2"  NumberOfAR_Sets="1"/>
+    				</DeviceAccessPointItem>
+    				
+   				<!-- DAP with Two Ports (TeSys Tera PROFINET IO Device DC Variant) -->
+    				<DeviceAccessPointItem ID="DAP_LTMTPNBD2" FixedInSlots="0" PhysicalSlots="0..1" ModuleIdentNumber="0x10100000" DNS_CompatibleName="tesys-tera-pn" ImplementationType="Texas Instrument" ObjectUUID_LocalIndex="1" DeviceAccessSupported="true" LLDP_NoD_Supported="true" ResetToFactoryModes="2" MultipleWriteSupported="true" NameOfStationNotTransferable="true"  PNIO_Version="V2.43" MinDeviceInterval="512"	 IO_SupervisorSupported="false" NumberOfDeviceAccessAR="1" CheckDeviceID_Allowed="true" PrmBeginPrmEndSequenceSupported="true">  
+					<!--                                                    -->
+					<!-- TeSys Tera PROFINET IO Device -->
+					<!--                                                    -->
+					<ModuleInfo>
+						<Name TextId="TID_NAME_LTMTPNBD"/>
+						<InfoText TextId="TID_INFO_LTMTPNBD2"/>
+						<VendorName Value="Schneider Electric"/>
+						<OrderNumber Value="LTMTPNBD"/>
+						<HardwareRelease Value="1" />				<!-- To be Updated if version modified -->
+						<SoftwareRelease Value="V2.0.21" />		<!-- To be Updated if version modified -->
+					</ModuleInfo>
+      					<CertificationInfo ConformanceClass="B" ApplicationClass="" NetloadClass="II"/>
+					<SubslotList>
+						<SubslotItem TextId="PDEV_X1" SubslotNumber="32768" />
+						<SubslotItem TextId="PDEV_X1_P1" SubslotNumber="32769" />
+						<SubslotItem TextId="PDEV_X1_P2" SubslotNumber="32770" />
+					</SubslotList>
+      					<IOConfigData MaxInputLength="512" MaxOutputLength="512" MaxDataLength="1024"/>
+      					<UseableModules>
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="1" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="2" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="3" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="4" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="5" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="6" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="7" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="8" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="9" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="10" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="11" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="12" />
+						<ModuleItemRef AllowedInSlots="1" ModuleItemTarget="13" />
+      					</UseableModules>
+      					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="DAP_LTMTPNBD2" SubmoduleIdentNumber="0x10110000" MayIssueProcessAlarm="true">
+							<IOData />
+							<ModuleInfo>
+								<Name TextId="T_ID_DAP_LTMTPNBD" />
+								<InfoText TextId="T_ID_DEV_DESCRIPTION" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+					<SystemDefinedSubmoduleList>
+						<InterfaceSubmoduleItem ID="IDS_1I_LTMTPNBD2" TextId="Interface PN" SubslotNumber="32768" PTP_BoundarySupported="true" DCP_BoundarySupported="true" DCP_HelloSupported="false" SupportedProtocols="LLDP;SNMP" SupportedRT_Classes="RT_CLASS_1" SubmoduleIdentNumber="0x10110001" NetworkComponentDiagnosisSupported="false" PDEV_CombinedObjectSupported="true" Writeable_IM_Records="1 2 3">
+							<ApplicationRelations StartupMode="Advanced;Legacy" NumberOfAR="2" NumberOfAdditionalInputCR="0" NumberOfAdditionalMulticastProviderCR="0" NumberOfAdditionalOutputCR="0" NumberOfMulticastConsumerCR="0">
+								<TimingProperties SendClock="8 16 32 64 128" ReductionRatio="1 2 4 8 16 32 64 128 256 512"/>	
+							</ApplicationRelations>	
+							<MediaRedundancy SupportedRole="Client" MRPD_Supported="false" MRT_Supported="false" AdditionalProtocolsSupported="false"/>
+						</InterfaceSubmoduleItem>
+						<PortSubmoduleItem ID="IDS_1P1_LTMTPNBD2" TextId="TOK_DAP_PDEV_PORT1_SUBMODULE" MAUTypes="16" SubslotNumber="32769" SubmoduleIdentNumber="0x10110002" CheckMAUTypeSupported="true" PortDeactivationSupported="true" LinkStateDiagnosisCapability="Up+Down" SupportsRingportConfig="false" IsDefaultRingport="true">
+						 	<MAUTypeList>
+								<MAUTypeItem Value="16" AdjustSupported="true"/>
+							</MAUTypeList>
+						</PortSubmoduleItem>
+						<PortSubmoduleItem ID="IDS_1P2_LTMTPNBD2" TextId="TOK_DAP_PDEV_PORT2_SUBMODULE" MAUTypes="16" SubslotNumber="32770" SubmoduleIdentNumber="0x10110002" CheckMAUTypeSupported="true" PortDeactivationSupported="true" LinkStateDiagnosisCapability="Up+Down" SupportsRingportConfig="false" IsDefaultRingport="true">
+						 	<MAUTypeList>
+								<MAUTypeItem Value="16" AdjustSupported="true"/>
+							</MAUTypeList>
+						</PortSubmoduleItem>
+          				</SystemDefinedSubmoduleList>
+					<Graphics>
+						<GraphicItemRef Type="DeviceSymbol" GraphicItemTarget="1"/>
+					</Graphics>
+      					<SystemRedundancy  MaxSwitchOverTime="500" DeviceType="S2" DeviceTypes="S2"  NumberOfAR_Sets="1"/>
+    				</DeviceAccessPointItem>
+    				
+    			</DeviceAccessPointList>
+   
+<!-- =============================================================================================================== -->
+<!--                                                                                                       MODULE LIST                                                                                                                                                          -->
+<!-- =============================================================================================================== -->
+			<ModuleList>
+    				<ModuleItem ID="1" ModuleIdentNumber="0x10400000">
+      					<ModuleInfo>
+						<Name TextId="Name Tera Profile"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="1" SubmoduleIdentNumber="0x10400003" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="40" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="4" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+    				<ModuleItem ID="2" ModuleIdentNumber="0x10400000">
+      					<ModuleInfo>
+    						<Name TextId="Name Basic Overload"/>
+				            <InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+				       </ModuleInfo>
+					<VirtualSubmoduleList>
+    						<VirtualSubmoduleItem ID="2" SubmoduleIdentNumber="0x10400004" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="1" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="1" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="3" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name Extended Overload"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="3" SubmoduleIdentNumber="0x10400005" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="1" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="1" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="4" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name Basic Motor Starter"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="4" SubmoduleIdentNumber="0x10400006" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="1" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="1" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="5" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name Extended Contractor"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="5" SubmoduleIdentNumber="0x10400007" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="1" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="1" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="6" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name Extended Motor Starter 1"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="6" SubmoduleIdentNumber="0x10400008" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="1" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="1" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="7" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name Extended Motor Starter 2"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="7" SubmoduleIdentNumber="0x10400009" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="1" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="1" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+        			<ModuleItem ID="8" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name LTMT Control and Monitoring"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="8" SubmoduleIdentNumber="0x10400010" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="8" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="6" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="9" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name PKW"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="9" SubmoduleIdentNumber="0x10400011" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="8" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="8" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="10" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name PKW and Extended Motor Starter"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="10" SubmoduleIdentNumber="0x10400012" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="10" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="10" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="11" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name PKW and LTMT Management"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="11" SubmoduleIdentNumber="0x10400013" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="16" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="14" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+				<ModuleItem ID="12" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name E_Fast Access"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="12" SubmoduleIdentNumber="0x10400014" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="12" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="6" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+			        <ModuleItem ID="13" ModuleIdentNumber="0x10400000">
+					<ModuleInfo>
+						<Name TextId="Name EIOS"/>
+						<InfoText TextId="Modular module help"/>	<!-- This field To Be Modified -->
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="13" SubmoduleIdentNumber="0x10400015" MayIssueProcessAlarm="true">
+							<IOData>
+								<Input>
+									<DataItem Length="128" TextId="Data IN" DataType="OctetString" UseAsBits="true" />
+								</Input>
+								<Output>
+									<DataItem Length="10" TextId="Data OUT" DataType="OctetString" UseAsBits="true" />
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="empty" />
+								<InfoText TextId="Module1 Info" />
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+			        </ModuleItem>
+       		</ModuleList>
+
+      <!-- Diagnose-Texte -->
+	<ChannelDiagList>
+		<ChannelDiagItem ErrorType="4097">
+			<Name TextId="Overload Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4098">
+			<Name TextId="Locked Rotor Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4099">
+			<Name TextId="Stalled Rotor Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4100">
+			<Name TextId="Over Current Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4101">
+			<Name TextId="Over Current IDMT Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4102">
+			<Name TextId="Short Circuit Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4103">
+			<Name TextId="Earth Fault Internal Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4104">
+			<Name TextId="Earth Fault External Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4105">
+			<Name TextId="Under Current Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4106">
+			<Name TextId="Current Unbalance Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4107">
+			<Name TextId="Current Phase Loss Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4108">
+			<Name TextId="Current Phase Reversal Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4113">
+			<Name TextId="Under Voltage Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4114">
+			<Name TextId="Over Voltage Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4115">
+			<Name TextId="Voltage Phase Loss Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4116">
+			<Name TextId="Voltage Unbalance Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4117">
+			<Name TextId="Voltage Phase Reversal  Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4118">
+			<Name TextId="Under Frequency Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4119">
+			<Name TextId="Over Frequency Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4120">
+			<Name TextId="Under Power Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4121">
+			<Name TextId="Over Power Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4122">
+			<Name TextId="Under PF Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4129">
+			<Name TextId="Interlock - 1 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4130">
+			<Name TextId="Interlock - 2 Alarm" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4131">
+			<Name TextId="Interlock - 3 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4132">
+			<Name TextId="Interlock - 4 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4133">
+			<Name TextId="Interlock - 5 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4134">
+			<Name TextId="Interlock - 6 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4135">
+			<Name TextId="Interlock - 7 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4136">
+			<Name TextId="Interlock - 8 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4137">
+			<Name TextId="Interlock - 9 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4138">
+			<Name TextId="Interlock - 10 Alarm" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4139">
+			<Name TextId="Interlock - 11 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4140">
+			<Name TextId="Interlock - 12 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4145">
+			<Name TextId="Temperature Unit 1 - Input 1 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4146">
+			<Name TextId="Temperature Unit 1 - Input 2 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4147">
+			<Name TextId="Temperature Unit 1 - Input 3 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4148">
+			<Name TextId="Temperature Unit 2 - Input 1 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4149">
+			<Name TextId="Temperature Unit 2 - Input 2 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4150">
+			<Name TextId="Temperature Unit 2 - Input 3 Alarm" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4151">
+			<Name TextId="Temperature Unit 3 - Input 1 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4152">
+			<Name TextId="Temperature Unit 3 - Input 2 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4153">
+			<Name TextId="Temperature Unit 3 - Input 3 Alarm" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4154">
+			<Name TextId="Temperature Unit 4 - Input 1 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4155">
+			<Name TextId="Temperature Unit 4 - Input 2 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4156">
+			<Name TextId="Temperature Unit 4 - Input 3 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4157">
+			<Name TextId="Temperature Unit 5 - Input 1 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4158">
+			<Name TextId="Temperature Unit 5 - Input 2 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4159">
+			<Name TextId="Temperature Unit 5 - Input 3 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4160">
+			<Name TextId="Over Temperature Alarm" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4161">
+			<Name TextId="AIO Unit 1 - Input 1 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4162">
+			<Name TextId="AIO Unit 1 - Input 2 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4163">
+			<Name TextId="AIO Unit 2 - Input 1 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4164">
+			<Name TextId="AIO Unit 2 - Input 2 Alarm" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4169">
+			<Name TextId="Communication Fail Alarm" />
+		</ChannelDiagItem>	
+		
+		<ChannelDiagItem ErrorType="4177">
+			<Name TextId="Overload Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4178">
+			<Name TextId="Locked Rotor Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4179">
+			<Name TextId="Stalled Rotor Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4180">
+			<Name TextId="Over Current Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4181">
+			<Name TextId="Over Current IDMT Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4182">
+			<Name TextId="Short Circuit Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4183">
+			<Name TextId="Earth Fault Internal Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4184">
+			<Name TextId="Earth Fault External Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4185">
+			<Name TextId="Under Current Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4186">
+			<Name TextId="Current Unbalance Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4187">
+			<Name TextId="Current Phase Loss Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4188">
+			<Name TextId="Current Phase Reversal Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4193">
+			<Name TextId="Under Voltage Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4194">
+			<Name TextId="Over Voltage Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4195">
+			<Name TextId="Voltage Phase Loss Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4196">
+			<Name TextId="Voltage Unbalance Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4197">
+			<Name TextId="Voltage Phase Reversal Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4198">
+			<Name TextId="Under Frequency Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4199">
+			<Name TextId="Over Frequency Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4200">
+			<Name TextId="Under Power Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4201">
+			<Name TextId="Over Power Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4202">
+			<Name TextId="Under PF Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4209">
+			<Name TextId="Interlock - 1 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4210">
+			<Name TextId="Interlock - 2 Trip" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4211">
+			<Name TextId="Interlock - 3 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4212">
+			<Name TextId="Interlock - 4 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4213">
+			<Name TextId="Interlock - 5 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4214">
+			<Name TextId="Interlock - 6 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4215">
+			<Name TextId="Interlock - 7 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4216">
+			<Name TextId="Interlock - 8 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4217">
+			<Name TextId="Interlock - 9 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4218">
+			<Name TextId="Interlock - 10 Trip" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4219">
+			<Name TextId="Interlock - 11 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4220">
+			<Name TextId="Interlock - 12 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4225">
+			<Name TextId="Temperature Unit 1 - Input 1 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4226">
+			<Name TextId="Temperature Unit 1 - Input 2 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4227">
+			<Name TextId="Temperature Unit 1 - Input 3 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4228">
+			<Name TextId="Temperature Unit 2 - Input 1 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4229">
+			<Name TextId="Temperature Unit 2 - Input 2 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4230">
+			<Name TextId="Temperature Unit 2 - Input 3 Trip" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4231">
+			<Name TextId="Temperature Unit 3 - Input 1 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4232">
+			<Name TextId="Temperature Unit 3 - Input 2 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4233">
+			<Name TextId="Temperature Unit 3 - Input 3 Trip" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4234">
+			<Name TextId="Temperature Unit 4 - Input 1 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4235">
+			<Name TextId="Temperature Unit 4 - Input 2 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4236">
+			<Name TextId="Temperature Unit 4 - Input 3 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4237">
+			<Name TextId="Temperature Unit 5 - Input 1 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4238">
+			<Name TextId="Temperature Unit 5 - Input 2 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4239">
+			<Name TextId="Temperature Unit 5 - Input 3 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4240">
+			<Name TextId="Over Temperature Trip" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4241">
+			<Name TextId="AIO Unit 1 - Input 1 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4242">
+			<Name TextId="AIO Unit 1 - Input 2 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4243">
+			<Name TextId="AIO Unit 2 - Input 1 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4244">
+			<Name TextId="AIO Unit 2 - Input 2 Trip" />
+		</ChannelDiagItem>
+		<ChannelDiagItem ErrorType="4249">
+			<Name TextId="Communication Fail Trip" />
+		</ChannelDiagItem>		
+		<ChannelDiagItem ErrorType="4250">
+			<Name TextId="Excessive Start Time Trip" />
+		</ChannelDiagItem>
+	</ChannelDiagList>
+	
+	<GraphicsList>
+		<GraphicItem ID="1" GraphicFile="GSDML-0129-0701-TeSysTeraPN-IMG"/>
+	</GraphicsList>
+   
+		      <!--      -->
+		      <!-- Text -->
+		      <!--      -->
+			<ExternalTextList>
+				<PrimaryLanguage>
+		          		<!-- Family description -->
+		          		<Text TextId="TOK_DevIdent_InfoText" Value="Motor Management System TeSys Tera Profinet"/>
+		          		<!-- PDEV -->
+		          		<Text Value="Port 1" TextId="TOK_DAP_PDEV_PORT1_SUBMODULE" />
+					<Text Value="Port 2" TextId="TOK_DAP_PDEV_PORT2_SUBMODULE" />
+		           		<Text Value="X1" TextId="PDEV_X1" />
+					<Text Value="X1 P1" TextId="PDEV_X1_P1" />
+					<Text Value="X1 P2" TextId="PDEV_X1_P2" />
+					<!-- Interface submodule item label -->
+		           		<Text Value="PN-IO" TextId="Interface PN"/>
+					<!--Device Access Point information etc -->
+					<Text TextId="DAP_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="TID_NAME_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="TID_INFO_LTMTPNFM" Value="TeSys Tera Profinet I/O device with One Port"/>
+					<Text TextId="TID_INFO_LTMTPNFM2" Value="TeSys Tera Profinet I/O device with Two Ports"/>
+					<Text TextId="T_ID_DEV_DESCRIPTION" Value="This Device Access Point supports RT communication"/>
+					<Text TextId="T_ID_DAP_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="DAP_LTMTPNBD" Value="LTMTPNBD"/>
+					<Text TextId="TID_NAME_LTMTPNBD" Value="LTMTPNBD"/>
+					<Text TextId="TID_INFO_LTMTPNBD" Value="TeSys Tera Profinet I/O device with One Port"/>
+					<Text TextId="TID_INFO_LTMTPNBD2" Value="TeSys Tera Profinet I/O device with Two Ports"/>
+					<Text TextId="T_ID_DAP_LTMTPNBD" Value="LTMTPNBD"/>
+		           		<!-- General Identifiers -->
+					<Text TextId="Data IN" Value="Input Data"/>
+					<Text TextId="Data OUT" Value="Output Data"/>
+					
+					<Text TextId="Modular module text" Value="Modular"/>
+					<Text TextId="Modular module help" Value="Tera Motor Management and Control Device, PROFINET IO, 0.30A...820A, expandable using expansion modules."/>
+					<!-- Module Name -->
+					<Text TextId="Name Tera Profile" Value="Tera Profile"/>
+					<Text TextId="Name Basic Overload" Value="Basic Overload"/>
+					<Text TextId="Name Extended Overload" Value="Extended Overload"/>
+					<Text TextId="Name Basic Motor Starter" Value="Basic Motor Starter"/>
+					<Text TextId="Name Extended Contractor" Value="Extended Contractor"/>
+					<Text TextId="Name Extended Motor Starter 1" Value="Extended Motor Starter 1"/>
+					<Text TextId="Name Extended Motor Starter 2" Value="Extended Motor Starter 2"/>
+					<Text TextId="Name LTMT Control and Monitoring" Value="LTMT Control and Monitoring"/>
+					<Text TextId="Name PKW" Value="PKW"/>
+					<Text TextId="Name PKW and Extended Motor Starter" Value="PKW and Extended Motor Starter"/>
+					<Text TextId="Name PKW and LTMT Management" Value="PKW and LTMT Management"/>
+					<Text TextId="Name E_Fast Access" Value="E_Fast Access"/>
+					<Text TextId="Name EIOS" Value="EIOS"/>
+		
+					<Text TextId="Data" Value="Data"/>
+					<Text TextId="empty" Value="1" />
+					<Text TextId=" Module1 Info"  Value="To be added" />
+			  
+	          			<!-- Diagnostic Text -->
+					<Text TextId="Overload Alarm" Value="Overload Alarm" />
+					<Text TextId="Locked Rotor Alarm" Value="Locked Rotor Alarm" />
+					<Text TextId="Stalled Rotor Alarm" Value="Stalled Rotor Alarm" />
+					<Text TextId="Over Current Alarm" Value="Over Current Alarm" />
+					<Text TextId="Over Current IDMT Alarm" Value="Over Current IDMT Alarm" />
+					<Text TextId="Short Circuit Alarm" Value="Short Circuit Alarm" />
+					<Text TextId="Earth Fault Internal Alarm" Value="Earth Fault Internal Alarm" />
+					<Text TextId="Earth Fault External Alarm" Value="Earth Fault External Alarm" />
+					<Text TextId="Under Current Alarm" Value="Under Current Alarm" />
+					<Text TextId="Current Unbalance Alarm" Value="Current Unbalance Alarm" />
+					<Text TextId="Current Phase Loss Alarm" Value="Current Phase Loss Alarm" />
+					<Text TextId="Current Phase Reversal Alarm" Value="Current Phase Reversal Alarm" />
+					<Text TextId="Under Voltage Alarm" Value="Under Voltage Alarm" />
+					<Text TextId="Over Voltage Alarm" Value="Over Voltage Alarm" />
+					<Text TextId="Voltage Phase Loss Alarm" Value="Voltage Phase Loss Alarm" />
+					<Text TextId="Voltage Unbalance Alarm" Value="Voltage Unbalance Alarm" />
+					<Text TextId="Voltage Phase Reversal  Alarm" Value="Voltage Phase Reversal  Alarm" />
+					<Text TextId="Under Frequency Alarm" Value="Under Frequency Alarm" />
+					<Text TextId="Over Frequency Alarm" Value="Over Frequency Alarm" />
+					<Text TextId="Under Power Alarm" Value="Under Power Alarm" />
+					<Text TextId="Over Power Alarm" Value="Over Power Alarm" />
+					<Text TextId="Under PF Alarm" Value="Under PF Alarm" />
+					<Text TextId="Interlock - 1 Alarm" Value="Interlock - 1 Alarm" />
+					<Text TextId="Interlock - 2 Alarm" Value="Interlock - 2 Alarm" />
+					<Text TextId="Interlock - 3 Alarm" Value="Interlock - 3 Alarm" />
+					<Text TextId="Interlock - 4 Alarm" Value="Interlock - 4 Alarm" />
+					<Text TextId="Interlock - 5 Alarm" Value="Interlock - 5 Alarm" />
+					<Text TextId="Interlock - 6 Alarm" Value="Interlock - 6 Alarm" />
+					<Text TextId="Interlock - 7 Alarm" Value="Interlock - 7 Alarm" />
+					<Text TextId="Interlock - 8 Alarm" Value="Interlock - 8 Alarm" />
+					<Text TextId="Interlock - 9 Alarm" Value="Interlock - 9 Alarm" />
+					<Text TextId="Interlock - 10 Alarm" Value="Interlock - 10 Alarm" />
+					<Text TextId="Interlock - 11 Alarm" Value="Interlock - 11 Alarm" />
+					<Text TextId="Interlock - 12 Alarm" Value="Interlock - 12 Alarm" />
+					<Text TextId="Temperature Unit 1 - Input 1 Alarm" Value="Temperature Unit 1 - Input 1 Alarm" />
+					<Text TextId="Temperature Unit 1 - Input 2 Alarm" Value="Temperature Unit 1 - Input 2 Alarm" />
+					<Text TextId="Temperature Unit 1 - Input 3 Alarm" Value="Temperature Unit 1 - Input 3 Alarm" />
+					<Text TextId="Temperature Unit 2 - Input 1 Alarm" Value="Temperature Unit 2 - Input 1 Alarm" />
+					<Text TextId="Temperature Unit 2 - Input 2 Alarm" Value="Temperature Unit 2 - Input 2 Alarm" />
+					<Text TextId="Temperature Unit 2 - Input 3 Alarm" Value="Temperature Unit 2 - Input 3 Alarm" />
+					<Text TextId="Temperature Unit 3 - Input 1 Alarm" Value="Temperature Unit 3 - Input 1 Alarm" />
+					<Text TextId="Temperature Unit 3 - Input 2 Alarm" Value="Temperature Unit 3 - Input 2 Alarm" />
+					<Text TextId="Temperature Unit 3 - Input 3 Alarm" Value="Temperature Unit 3 - Input 3 Alarm" />
+					<Text TextId="Temperature Unit 4 - Input 1 Alarm" Value="Temperature Unit 4 - Input 1 Alarm" />
+					<Text TextId="Temperature Unit 4 - Input 2 Alarm" Value="Temperature Unit 4 - Input 2 Alarm" />
+					<Text TextId="Temperature Unit 4 - Input 3 Alarm" Value="Temperature Unit 4 - Input 3 Alarm" />
+					<Text TextId="Temperature Unit 5 - Input 1 Alarm" Value="Temperature Unit 5 - Input 1 Alarm" />
+					<Text TextId="Temperature Unit 5 - Input 2 Alarm" Value="Temperature Unit 5 - Input 2 Alarm" />
+					<Text TextId="Temperature Unit 5 - Input 3 Alarm" Value="Temperature Unit 5 - Input 3 Alarm" />
+					<Text TextId="Over Temperature Alarm" Value="Over Temperature Alarm" />
+					<Text TextId="AIO Unit 1 - Input 1 Alarm" Value="AIO Unit 1 - Input 1 Alarm" />
+					<Text TextId="AIO Unit 1 - Input 2 Alarm" Value="AIO Unit 1 - Input 2 Alarm" />
+					<Text TextId="AIO Unit 2 - Input 1 Alarm" Value="AIO Unit 2 - Input 1 Alarm" />
+					<Text TextId="AIO Unit 2 - Input 2 Alarm" Value="AIO Unit 2 - Input 2 Alarm" />
+					<Text TextId="Communication Fail Alarm" Value="Communication Fail Alarm" />
+		          
+					<Text TextId="Overload Trip" Value="Overload Trip" />
+					<Text TextId="Locked Rotor Trip" Value="Locked Rotor Trip" />
+					<Text TextId="Stalled Rotor Trip" Value="Stalled Rotor Trip" />
+					<Text TextId="Over Current Trip" Value="Over Current Trip" />
+					<Text TextId="Over Current IDMT Trip" Value="Over Current IDMT Trip" />
+					<Text TextId="Short Circuit Trip" Value="Short Circuit Trip" />
+					<Text TextId="Earth Fault Internal Trip" Value="Earth Fault Internal Trip" />
+					<Text TextId="Earth Fault External Trip" Value="Earth Fault External Trip" />
+					<Text TextId="Under Current Trip" Value="Under Current Trip" />
+					<Text TextId="Current Unbalance Trip" Value="Current Unbalance Trip" />
+					<Text TextId="Current Phase Loss Trip" Value="Current Phase Loss Trip" />
+					<Text TextId="Current Phase Reversal Trip" Value="Current Phase Reversal Trip" />
+					<Text TextId="Under Voltage Trip" Value="Under Voltage Trip" />
+					<Text TextId="Over Voltage Trip" Value="Over Voltage Trip" />
+					<Text TextId="Voltage Phase Loss Trip" Value="Voltage Phase Loss Trip" />
+					<Text TextId="Voltage Unbalance Trip" Value="Voltage Unbalance Trip" />
+					<Text TextId="Voltage Phase Reversal Trip" Value="Voltage Phase Reversal Trip" />
+					<Text TextId="Under Frequency Trip" Value="Under Frequency Trip" />
+					<Text TextId="Over Frequency Trip" Value="Over Frequency Trip" />
+					<Text TextId="Under Power Trip" Value="Under Power Trip" />
+					<Text TextId="Over Power Trip" Value="Over Power Trip" />
+					<Text TextId="Under PF Trip" Value="Under PF Trip" />
+					<Text TextId="Interlock - 1 Trip" Value="Interlock - 1 Trip" />
+					<Text TextId="Interlock - 2 Trip" Value="Interlock - 2 Trip" />
+					<Text TextId="Interlock - 3 Trip" Value="Interlock - 3 Trip" />
+					<Text TextId="Interlock - 4 Trip" Value="Interlock - 4 Trip" />
+					<Text TextId="Interlock - 5 Trip" Value="Interlock - 5 Trip" />
+					<Text TextId="Interlock - 6 Trip" Value="Interlock - 6 Trip" />
+					<Text TextId="Interlock - 7 Trip" Value="Interlock - 7 Trip" />
+					<Text TextId="Interlock - 8 Trip" Value="Interlock - 8 Trip" />
+					<Text TextId="Interlock - 9 Trip" Value="Interlock - 9 Trip" />
+					<Text TextId="Interlock - 10 Trip" Value="Interlock - 10 Trip" />
+					<Text TextId="Interlock - 11 Trip" Value="Interlock - 11 Trip" />
+					<Text TextId="Interlock - 12 Trip" Value="Interlock - 12 Trip" />
+					<Text TextId="Temperature Unit 1 - Input 1 Trip" Value="Temperature Unit 1 - Input 1 Trip" />
+					<Text TextId="Temperature Unit 1 - Input 2 Trip" Value="Temperature Unit 1 - Input 2 Trip" />
+					<Text TextId="Temperature Unit 1 - Input 3 Trip" Value="Temperature Unit 1 - Input 3 Trip" />
+					<Text TextId="Temperature Unit 2 - Input 1 Trip" Value="Temperature Unit 2 - Input 1 Trip" />
+					<Text TextId="Temperature Unit 2 - Input 2 Trip" Value="Temperature Unit 2 - Input 2 Trip" />
+					<Text TextId="Temperature Unit 2 - Input 3 Trip" Value="Temperature Unit 2 - Input 3 Trip" />
+					<Text TextId="Temperature Unit 3 - Input 1 Trip" Value="Temperature Unit 3 - Input 1 Trip" />
+					<Text TextId="Temperature Unit 3 - Input 2 Trip" Value="Temperature Unit 3 - Input 2 Trip" />
+					<Text TextId="Temperature Unit 3 - Input 3 Trip" Value="Temperature Unit 3 - Input 3 Trip" />
+					<Text TextId="Temperature Unit 4 - Input 1 Trip" Value="Temperature Unit 4 - Input 1 Trip" />
+					<Text TextId="Temperature Unit 4 - Input 2 Trip" Value="Temperature Unit 4 - Input 2 Trip" />
+					<Text TextId="Temperature Unit 4 - Input 3 Trip" Value="Temperature Unit 4 - Input 3 Trip" />
+					<Text TextId="Temperature Unit 5 - Input 1 Trip" Value="Temperature Unit 5 - Input 1 Trip" />
+					<Text TextId="Temperature Unit 5 - Input 2 Trip" Value="Temperature Unit 5 - Input 2 Trip" />
+					<Text TextId="Temperature Unit 5 - Input 3 Trip" Value="Temperature Unit 5 - Input 3 Trip" />
+					<Text TextId="Over Temperature Trip" Value="Over Temperature Trip" />
+					<Text TextId="AIO Unit 1 - Input 1 Trip" Value="AIO Unit 1 - Input 1 Trip" />
+					<Text TextId="AIO Unit 1 - Input 2 Trip" Value="AIO Unit 1 - Input 2 Trip" />
+					<Text TextId="AIO Unit 2 - Input 1 Trip" Value="AIO Unit 2 - Input 1 Trip" />
+					<Text TextId="AIO Unit 2 - Input 2 Trip" Value="AIO Unit 2 - Input 2 Trip" />
+					<Text TextId="Communication Fail Trip" Value="Communication Fail Trip" />        
+					<Text TextId="Excessive Start Time Trip" Value="Excessive Start Time Trip" />
+    				</PrimaryLanguage>
+    				<Language xml:lang="de">
+    					<!-- Familienbeschreibung -->
+		          		<Text TextId="TOK_DevIdent_InfoText" Value="Motor Management System TeSys Tera Profinet"/>
+		          		<!-- PDEV -->
+		          		<Text Value="Port 1" TextId="TOK_DAP_PDEV_PORT1_SUBMODULE" />
+					<Text Value="Port 2" TextId="TOK_DAP_PDEV_PORT2_SUBMODULE" />
+		           		<Text Value="X1" TextId="PDEV_X1" />
+					<Text Value="X1 P1" TextId="PDEV_X1_P1" />
+					<Text Value="X1 P2" TextId="PDEV_X1_P2" />
+					<!-- Bezeichnung des Schnittstellen-Submodulelements -->
+		           		<Text Value="PN-IO" TextId="Interface PN"/>
+					<!-- Informationen zum Gerätezugriffspunkt usw. -->
+					<Text TextId="DAP_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="TID_NAME_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="TID_INFO_LTMTPNFM" Value="TeSys Tera Profinet-E/A-Gerät mit einem Port"/>
+					<Text TextId="TID_INFO_LTMTPNFM2" Value="TeSys Tera Profinet-E/A-Gerät mit zwei Ports"/>
+					<Text TextId="T_ID_DEV_DESCRIPTION" Value="Dieser Gerätezugangspunkt unterstützt RT-Kommunikation"/>
+					<Text TextId="T_ID_DAP_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="DAP_LTMTPNBD" Value="LTMTPNBD"/>
+					<Text TextId="TID_NAME_LTMTPNBD" Value="LTMTPNBD"/>
+					<Text TextId="TID_INFO_LTMTPNBD" Value="TeSys Tera Profinet-E/A-Gerät mit einem Port"/>
+					<Text TextId="TID_INFO_LTMTPNBD2" Value="TeSys Tera Profinet-E/A-Gerät mit zwei Ports"/>
+					<Text TextId="T_ID_DAP_LTMTPNBD" Value="LTMTPNBD"/>
+		           		<!-- Allgemeine Kennungen -->
+					<Text TextId="Data IN" Value="Eingabedaten"/>
+					<Text TextId="Data OUT" Value="Ausgabedaten"/>
+					
+					<Text TextId="Modular module text" Value="Modular"/>
+					<Text TextId="Modular module help" Value="Tera Motormanagement- und Steuergerät, PROFINET IO, 0,30A...820A, erweiterbar durch Erweiterungsmodule."/>
+					<!-- Module Name -->
+					<Text TextId="Name Tera Profile" Value="Tera-Profil"/>
+					<Text TextId="Name Basic Overload" Value="Grundlegende Überlastung"/>
+					<Text TextId="Name Extended Overload" Value="Erweiterte Überlastung"/>
+					<Text TextId="Name Basic Motor Starter" Value="Einfacher Motorstarter"/>
+					<Text TextId="Name Extended Contractor" Value="Erweiterter Auftragnehmer"/>
+					<Text TextId="Name Extended Motor Starter 1" Value="Erweiterter Motorstarter 1"/>
+					<Text TextId="Name Extended Motor Starter 2" Value="Erweiterter Motorstarter 2"/>
+					<Text TextId="Name LTMT Control and Monitoring" Value="LTMT-Steuerung und -Überwachung"/>
+					<Text TextId="Name PKW" Value="PKW"/>
+					<Text TextId="Name PKW and Extended Motor Starter" Value="PKW und erweiterter Motorstarter"/>
+					<Text TextId="Name PKW and LTMT Management" Value="PKW- und LTMT-Management"/>
+					<Text TextId="Name E_Fast Access" Value="E_Schneller Zugriff"/>
+					<Text TextId="Name EIOS" Value="EIOS"/>
+		
+					<Text TextId="Data" Value="Data"/>
+					<Text TextId="empty" Value="1" />
+					<Text TextId=" Module1 Info"  Value="To be added" />
+    				
+    					<!-- Diagnosetext -->
+					<Text TextId="Overload Alarm" Value="Überlastungsalarm" />
+					<Text TextId="Locked Rotor Alarm" Value="Alarm bei blockiertem Rotor" />
+					<Text TextId="Stalled Rotor Alarm" Value="Alarm Rotor blockiert" />
+					<Text TextId="Over Current Alarm" Value="Überstromalarm" />
+					<Text TextId="Over Current IDMT Alarm" Value="Überstrom-IDMT-Alarm" />
+					<Text TextId="Short Circuit Alarm" Value="Kurzschlussalarm" />
+					<Text TextId="Earth Fault Internal Alarm" Value="Interner Erdschlussalarm" />
+					<Text TextId="Earth Fault External Alarm" Value="Externer Erdschlussalarm" />
+					<Text TextId="Under Current Alarm" Value="Unter Aktueller Alarm" />
+					<Text TextId="Current Unbalance Alarm" Value="Aktueller Unwuchtalarm" />
+					<Text TextId="Current Phase Loss Alarm" Value="Stromphasenverlustalarm" />
+					<Text TextId="Current Phase Reversal Alarm" Value="Stromphasenumkehralarm" />
+					<Text TextId="Under Voltage Alarm" Value="Unterspannungsalarm" />
+					<Text TextId="Over Voltage Alarm" Value="Überspannungsalarm" />
+					<Text TextId="Voltage Phase Loss Alarm" Value="Alarm bei Spannungsphasenverlust" />
+					<Text TextId="Voltage Unbalance Alarm" Value="Spannungsungleichgewichtsalarm" />
+					<Text TextId="Voltage Phase Reversal  Alarm" Value="Alarm bei Phasenumkehr der Spannung" />
+					<Text TextId="Under Frequency Alarm" Value="Unter Frequenzalarm" />
+					<Text TextId="Over Frequency Alarm" Value="Überfrequenzalarm" />
+					<Text TextId="Under Power Alarm" Value="Unter Stromalarm" />
+					
+					<Text TextId="Over Power Alarm" Value="über Stromalarm" />
+					<Text TextId="Under PF Alarm" Value="Unter PF-Alarm" />
+					<Text TextId="Interlock - 1 Alarm" Value="Verriegelung - 1 Alarm" />
+					<Text TextId="Interlock - 2 Alarm" Value="Verriegelung - 2 Alarm" />
+					<Text TextId="Interlock - 3 Alarm" Value="Verriegelung - 3 Alarm" />
+					<Text TextId="Interlock - 4 Alarm" Value="Verriegelung - 4 Alarm" />
+					<Text TextId="Interlock - 5 Alarm" Value="Verriegelung - 5 Alarm" />
+					<Text TextId="Interlock - 6 Alarm" Value="Verriegelung - 6 Alarm" />
+					<Text TextId="Interlock - 7 Alarm" Value="Verriegelung - 7 Alarm" />
+					<Text TextId="Interlock - 8 Alarm" Value="Verriegelung - 8 Alarm" />
+					<Text TextId="Interlock - 9 Alarm" Value="Verriegelung - 9 Alarm" />
+					<Text TextId="Interlock - 10 Alarm" Value="Verriegelung - 10 Alarm" />
+					<Text TextId="Interlock - 11 Alarm" Value="Verriegelung - 11 Alarm" />
+					<Text TextId="Interlock - 12 Alarm" Value="Verriegelung - 12 Alarm" />
+					<Text TextId="Temperature Unit 1 - Input 1 Alarm" Value="Temperatureinheit 1 - Eingang 1 Alarm" />
+					<Text TextId="Temperature Unit 1 - Input 2 Alarm" Value="Temperatureinheit 1 - Eingang 2 Alarm" />
+					<Text TextId="Temperature Unit 1 - Input 3 Alarm" Value="Temperatureinheit 1 - Eingang 3 Alarm" />
+					<Text TextId="Temperature Unit 2 - Input 1 Alarm" Value="Temperatureinheit 2 - Eingang 1 Alarm" />
+					<Text TextId="Temperature Unit 2 - Input 2 Alarm" Value="Temperatureinheit 2 - Eingang 2 Alarm" />
+					<Text TextId="Temperature Unit 2 - Input 3 Alarm" Value="Temperatureinheit 2 - Eingang 3 Alarm" />
+					<Text TextId="Temperature Unit 3 - Input 1 Alarm" Value="Temperatureinheit 3 ??- Eingang 1 Alarm" />
+					<Text TextId="Temperature Unit 3 - Input 2 Alarm" Value="Temperatureinheit 3 ??- Eingang 2 Alarm" />
+					<Text TextId="Temperature Unit 3 - Input 3 Alarm" Value="Temperatureinheit 3 ??- Eingang 3 Alarm" />
+					<Text TextId="Temperature Unit 4 - Input 1 Alarm" Value="Temperatureinheit 4 - Eingang 1 Alarm" />
+					<Text TextId="Temperature Unit 4 - Input 2 Alarm" Value="Temperatureinheit 4 - Eingang 2 Alarm" />
+					<Text TextId="Temperature Unit 4 - Input 3 Alarm" Value="Temperatureinheit 4 - Eingang 3 Alarm" />
+					<Text TextId="Temperature Unit 5 - Input 1 Alarm" Value="Temperatureinheit 5 - Eingang 1 Alarm" />
+					<Text TextId="Temperature Unit 5 - Input 2 Alarm" Value="Temperatureinheit 5 - Eingang 2 Alarm" />
+					<Text TextId="Temperature Unit 5 - Input 3 Alarm" Value="Temperatureinheit 5 - Eingang 3 Alarm" />
+					<Text TextId="Over Temperature Alarm" Value="Übertemperaturalarm" />
+					<Text TextId="AIO Unit 1 - Input 1 Alarm" Value="AIO-Einheit 1 - Eingang 1 Alarm" />
+					<Text TextId="AIO Unit 1 - Input 2 Alarm" Value="AIO-Einheit 1 - Eingang 2 Alarm" />
+					<Text TextId="AIO Unit 2 - Input 1 Alarm" Value="AIO-Einheit 2 - Eingang 1 Alarm" />
+					<Text TextId="AIO Unit 2 - Input 2 Alarm" Value="AIO-Einheit 2 - Eingang 2 Alarm" />
+					<Text TextId="Communication Fail Alarm" Value="Kommunikationsfehleralarm" />
+					<Text TextId="Overload Trip" Value="Überlastabschaltung" />
+					<Text TextId="Locked Rotor Trip" Value="Blockierter Rotorabschaltung" />
+					<Text TextId="Stalled Rotor Trip" Value="Blockierter Rotorabschaltung" />
+					<Text TextId="Over Current Trip" Value="Überstromauslösung" />
+					<Text TextId="Over Current IDMT Trip" Value="Überstrom IDMT-Auslösung" />
+					<Text TextId="Short Circuit Trip" Value="Kurzschlussauslösung" />
+					<Text TextId="Earth Fault Internal Trip" Value="Erdschluss Interne Auslösung" />
+					<Text TextId="Earth Fault External Trip" Value="Erdschluss Externe Auslösung" />
+					<Text TextId="Under Current Trip" Value="Unterstromauslösung" />
+					<Text TextId="Current Unbalance Trip" Value="Stromunsymmetrieauslösung" />
+					<Text TextId="Current Phase Loss Trip" Value="Stromphasenausfallauslösung" />
+					<Text TextId="Current Phase Reversal Trip" Value="Stromphasenumkehrauslösung" />
+					<Text TextId="Under Voltage Trip" Value="Unterspannungauslösung" />
+					<Text TextId="Over Voltage Trip" Value="Überspannungsabschaltung" />
+					<Text TextId="Voltage Phase Loss Trip" Value="Spannungsphasenausfallabschaltung" />
+					<Text TextId="Voltage Unbalance Trip" Value="Spannungsunsymmetrieabschaltung" />
+					<Text TextId="Voltage Phase Reversal Trip" Value="Spannungsphasenumkehrabschaltung" />
+					<Text TextId="Under Frequency Trip" Value="Unterfrequenzabschaltung" />
+					<Text TextId="Over Frequency Trip" Value="Überfrequenzabschaltung" />
+					<Text TextId="Under Power Trip" Value="Unterleistungsabschaltung" />
+					<Text TextId="Over Power Trip" Value="Überleistungsabschaltung" />
+					<Text TextId="Under PF Trip" Value="Unterleistungsabschaltung" />
+					
+					<Text TextId="Interlock - 1 Trip" Value="Verriegelung - 1 Auslösung" />
+					<Text TextId="Interlock - 2 Trip" Value="Verriegelung - 2 Auslösung" />
+					<Text TextId="Interlock - 3 Trip" Value="Verriegelung - 3 Auslösung" />
+					<Text TextId="Interlock - 4 Trip" Value="Verriegelung - 4 Auslösung" />
+					<Text TextId="Interlock - 5 Trip" Value="Verriegelung - 5 Auslösung" />
+					<Text TextId="Interlock - 6 Trip" Value="Verriegelung - 6 Auslösung" />
+					<Text TextId="Interlock - 7 Trip" Value="Verriegelung - 7 Auslösung" />
+					<Text TextId="Interlock - 8 Trip" Value="Verriegelung - 8 Auslösung" />
+					<Text TextId="Interlock - 9 Trip" Value="Verriegelung - 9 Auslösung" />
+					<Text TextId="Interlock - 10 Trip" Value="Verriegelung - 10 Auslösung" />
+					<Text TextId="Interlock - 11 Trip" Value="Verriegelung - 11 Auslösung" />
+					<Text TextId="Interlock - 12 Trip" Value="Verriegelung - 12 Auslösung" />
+					<Text TextId="Temperature Unit 1 - Input 1 Trip" Value="Temperatureinheit 1 - Eingang 1 Auslösung" />
+					<Text TextId="Temperature Unit 1 - Input 2 Trip" Value="Temperatureinheit 1 - Eingang 2 Auslösung" />
+					<Text TextId="Temperature Unit 1 - Input 3 Trip" Value="Temperatureinheit 1 - Eingang 3 Auslösung" />
+					<Text TextId="Temperature Unit 2 - Input 1 Trip" Value="Temperatureinheit 2 - Eingang 1 Auslösung" />
+					<Text TextId="Temperature Unit 2 - Input 2 Trip" Value="Temperatureinheit 2 - Eingang 2 Auslösung" />
+					<Text TextId="Temperature Unit 2 - Input 3 Trip" Value="Temperatureinheit 2 - Eingang 3 Auslösung" />
+					<Text TextId="Temperature Unit 3 - Input 1 Trip" Value="Temperatureinheit 3 ??- Eingang 1 Auslösung" />
+					<Text TextId="Temperature Unit 3 - Input 2 Trip" Value="Temperatureinheit 3 ??- Eingang 2 Auslösung" />
+					<Text TextId="Temperature Unit 3 - Input 3 Trip" Value="Temperatureinheit 3 ??- Eingang 3 Auslösung" />
+					<Text TextId="Temperature Unit 4 - Input 1 Trip" Value="Temperatureinheit 4 - Eingang 1 Auslösung" />
+					<Text TextId="Temperature Unit 4 - Input 2 Trip" Value="Temperatureinheit 4 - Eingang 2 Auslösung" />
+					<Text TextId="Temperature Unit 4 - Input 3 Trip" Value="Temperatureinheit 4 - Eingang 3 Auslösung" />
+					<Text TextId="Temperature Unit 5 - Input 1 Trip" Value="Temperatureinheit 5 - Eingang 1 Auslösung" />
+					<Text TextId="Temperature Unit 5 - Input 2 Trip" Value="Temperatur Einheit 5 - Eingang 2 Auslösung" />
+					<Text TextId="Temperature Unit 5 - Input 3 Trip" Value="Temperatur Einheit 5 - Eingang 3 Auslösung" />
+					<Text TextId="Over Temperature Trip" Value="Übertemperatur Auslösung" />
+					<Text TextId="AIO Unit 1 - Input 1 Trip" Value="AIO Einheit 1 - Eingang 1 Auslösung" />
+					<Text TextId="AIO Unit 1 - Input 2 Trip" Value="AIO Einheit 1 - Eingang 2 Auslösung" />
+					<Text TextId="AIO Unit 2 - Input 1 Trip" Value="AIO Einheit 2 - Eingang 1 Auslösung" />
+					<Text TextId="AIO Unit 2 - Input 2 Trip" Value="AIO Einheit 2 - Eingang 2 Auslösung" />
+					<Text TextId="Communication Fail Trip" Value="Kommunikationsfehler Auslösung" />        
+					<Text TextId="Excessive Start Time Trip" Value="Fahrt wegen zu langer Startzeit" />
+    				</Language>
+    				<Language xml:lang="fr">
+    					<!-- Description de la famille -->
+		          		<Text TextId="TOK_DevIdent_InfoText" Value="Motor Management System TeSys Tera Profinet"/>
+		          		<!-- PDEV -->
+		          		<Text Value="Port 1" TextId="TOK_DAP_PDEV_PORT1_SUBMODULE" />
+					<Text Value="Port 2" TextId="TOK_DAP_PDEV_PORT2_SUBMODULE" />
+		           		<Text Value="X1" TextId="PDEV_X1" />
+					<Text Value="X1 P1" TextId="PDEV_X1_P1" />
+					<Text Value="X1 P2" TextId="PDEV_X1_P2" />
+					<!-- Étiquette de l'élément du sous-module d'interface -->
+		           		<Text Value="PN-IO" TextId="Interface PN"/>
+					<!--Informations sur le point d'accès de l'appareil, etc -->
+					<Text TextId="DAP_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="TID_NAME_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="TID_INFO_LTMTPNFM" Value="Périphérique d'E/S TeSys Tera Profinet avec un port"/>
+					<Text TextId="TID_INFO_LTMTPNFM2" Value="Périphérique d'E/S TeSys Tera Profinet avec deux ports"/>
+					<Text TextId="T_ID_DEV_DESCRIPTION" Value="Ce point d'accès de périphérique prend en charge la communication RT"/>
+					<Text TextId="T_ID_DAP_LTMTPNFM" Value="LTMTPNFM"/>
+					<Text TextId="DAP_LTMTPNBD" Value="LTMTPNBD"/>
+					<Text TextId="TID_NAME_LTMTPNBD" Value="LTMTPNBD"/>
+					<Text TextId="TID_INFO_LTMTPNBD" Value="Périphérique d'E/S TeSys Tera Profinet avec un port"/>
+					<Text TextId="TID_INFO_LTMTPNBD2" Value="Périphérique d'E/S TeSys Tera Profinet avec deux ports"/>
+					<Text TextId="T_ID_DAP_LTMTPNBD" Value="LTMTPNBD"/>
+		           		<!-- Identifiants généraux -->
+					<Text TextId="Data IN" Value="Données d'entrée"/>
+					<Text TextId="Data OUT" Value="Données de sortie"/>
+					
+					<Text TextId="Modular module text" Value="Modular"/>
+					<Text TextId="Modular module help" Value="Dispositif de gestion et de contrôle de moteur Tera, PROFINET IO, 0,30 A...820 A, extensible à l'aide de modules d'extension."/>
+					<!-- Nom du module -->
+					<Text TextId="Name Tera Profile" Value="Profil de Tera"/>
+					<Text TextId="Name Basic Overload" Value="Surcharge de base"/>
+					<Text TextId="Name Extended Overload" Value="Surcharge étendue"/>
+					<Text TextId="Name Basic Motor Starter" Value="Démarreur de moteur de base"/>
+					<Text TextId="Name Extended Contractor" Value="Entrepreneur étendu"/>
+					<Text TextId="Name Extended Motor Starter 1" Value="Démarreur moteur étendu 1"/>
+					<Text TextId="Name Extended Motor Starter 2" Value="Démarreur moteur étendu 2"/>
+					<Text TextId="Name LTMT Control and Monitoring" Value="Contrôle et surveillance LTMT"/>
+					<Text TextId="Name PKW" Value="PKW"/>
+					<Text TextId="Name PKW and Extended Motor Starter" Value="PKW et démarreur moteur étendu"/>
+					<Text TextId="Name PKW and LTMT Management" Value="Gestion PKW et LTMT"/>
+					<Text TextId="Name E_Fast Access" Value="E_Accès rapide"/>
+					<Text TextId="Name EIOS" Value="EIOS"/>
+		
+					<Text TextId="Data" Value="Data"/>
+					<Text TextId="empty" Value="1" />
+					<Text TextId=" Module1 Info"  Value="To be added" />
+    					<!-- Texte de diagnostic -->
+					<Text TextId="Overload Alarm" Value="Alarme de surcharge" />
+					<Text TextId="Locked Rotor Alarm" Value="Alarme de rotor bloqué" />
+					<Text TextId="Stalled Rotor Alarm" Value="Alarme de rotor bloqué" />
+					<Text TextId="Over Current Alarm" Value="Alarme de surintensité" />
+					<Text TextId="Over Current IDMT Alarm" Value="Alarme de surintensité IDMT" />
+					<Text TextId="Short Circuit Alarm" Value="Alarme de court-circuit" />
+					<Text TextId="Earth Fault Internal Alarm" Value="Alarme interne de défaut à la terre" />
+					<Text TextId="Earth Fault External Alarm" Value="Alarme externe de défaut à la terre" />
+					<Text TextId="Under Current Alarm" Value="Sous alarme actuelle" />
+					<Text TextId="Current Unbalance Alarm" Value="Alarme de déséquilibre de courant" />
+					<Text TextId="Current Phase Loss Alarm" Value="Alarme de perte de phase de courant" />
+					<Text TextId="Current Phase Reversal Alarm" Value="Alarme d'inversion de phase de courant" />
+					<Text TextId="Under Voltage Alarm" Value="Alarme de sous-tension" />
+					<Text TextId="Over Voltage Alarm" Value="Alarme de surtension" />
+					<Text TextId="Voltage Phase Loss Alarm" Value="Alarme de perte de phase de tension" />
+					<Text TextId="Voltage Unbalance Alarm" Value="Alarme de déséquilibre de tension" />
+					<Text TextId="Voltage Phase Reversal  Alarm" Value="Alarme d'inversion de phase de tension" />
+					<Text TextId="Under Frequency Alarm" Value="Alarme de sous-fréquence" />
+					<Text TextId="Over Frequency Alarm" Value="Alarme de surfréquence" />
+					<Text TextId="Under Power Alarm" Value="Alarme de sous-puissance" />
+					<Text TextId="Over Power Alarm" Value="Alarme de surpuissance" />
+					<Text TextId="Under PF Alarm" Value="Sous-PF Alarme" />
+					<Text TextId="Interlock - 1 Alarm" Value="Interverrouillage - 1 Alarme" />
+					<Text TextId="Interlock - 2 Alarm" Value="Interverrouillage - 2 Alarme" />
+					<Text TextId="Interlock - 3 Alarm" Value="Interverrouillage - 3 Alarme" />
+					<Text TextId="Interlock - 4 Alarm" Value="Interverrouillage - 4 Alarme" />
+					<Text TextId="Interlock - 5 Alarm" Value="Interverrouillage - 5 Alarme" />
+					<Text TextId="Interlock - 6 Alarm" Value="Interverrouillage - 6 Alarme" />
+					<Text TextId="Interlock - 7 Alarm" Value="Interverrouillage - 7 Alarme" />
+					<Text TextId="Interlock - 8 Alarm" Value="Interverrouillage - 8 Alarme" />
+					<Text TextId="Interlock - 9 Alarm" Value="Interverrouillage - 9 Alarme" />
+					<Text TextId="Interlock - 10 Alarm" Value="Interverrouillage - Alarme 10" />
+					<Text TextId="Interlock - 11 Alarm" Value="Interverrouillage - Alarme 11" />
+					<Text TextId="Interlock - 12 Alarm" Value="Interverrouillage - Alarme 12" />
+					<Text TextId="Temperature Unit 1 - Input 1 Alarm" Value="Unité de température 1 - Alarme entrée 1" />
+					<Text TextId="Temperature Unit 1 - Input 2 Alarm" Value="Unité de température 1 - Alarme entrée 2" />
+					<Text TextId="Temperature Unit 1 - Input 3 Alarm" Value="Unité de température 1 - Alarme entrée 3" />
+					<Text TextId="Temperature Unit 2 - Input 1 Alarm" Value="Unité de température 2 - Alarme entrée 1" />
+					<Text TextId="Temperature Unit 2 - Input 2 Alarm" Value="Unité de température 2 - Alarme entrée 2" />
+					<Text TextId="Temperature Unit 2 - Input 3 Alarm" Value="Unité de température 2 - Alarme entrée 3" />
+					<Text TextId="Temperature Unit 3 - Input 1 Alarm" Value="Unité de température 3 - Alarme entrée 1" />
+					<Text TextId="Temperature Unit 3 - Input 2 Alarm" Value="Unité de température 3 - Alarme entrée 2" />
+					<Text TextId="Temperature Unit 3 - Input 3 Alarm" Value="Unité de température 3 - Alarme entrée 3" />
+					<Text TextId="Temperature Unit 4 - Input 1 Alarm" Value="Unité de température 4 - Alarme entrée 1" />
+					<Text TextId="Temperature Unit 4 - Input 2 Alarm" Value="Unité de température 4 - Alarme entrée 2" />
+					<Text TextId="Temperature Unit 4 - Input 3 Alarm" Value="Unité de température 4 - Alarme entrée 3" />
+					<Text TextId="Temperature Unit 5 - Input 1 Alarm" Value="Unité de température 5 - Alarme entrée 1" />
+					<Text TextId="Temperature Unit 5 - Input 2 Alarm" Value="Unité de température 5 - Alarme entrée 2" />
+					<Text TextId="Temperature Unit 5 - Input 3 Alarm" Value="Unité de température 5 - Alarme entrée 3" />
+					<Text TextId="Over Temperature Alarm" Value="Alarme de surchauffe" />
+					<Text TextId="AIO Unit 1 - Input 1 Alarm" Value="AIO Unité 1 - Alarme entrée 1" />
+					<Text TextId="AIO Unit 1 - Input 2 Alarm" Value="AIO Unité 1 - Alarme entrée 2" />
+					<Text TextId="AIO Unit 2 - Input 1 Alarm" Value="AIO Unité 2 - Alarme entrée 1" />
+					<Text TextId="AIO Unit 2 - Input 2 Alarm" Value="AIO Unité 2 - Entrée 2 Alarme" />
+					<Text TextId="Communication Fail Alarm" Value="Alarme Défaut de Communication" />
+					<Text TextId="Overload Trip" Value="Déclenchement Surcharge" />
+					<Text TextId="Locked Rotor Trip" Value="Déclenchement Rotor Bloqué" />
+					<Text TextId="Stalled Rotor Trip" Value="Déclenchement Rotor Bloqué" />
+					<Text TextId="Over Current Trip" Value="Déclenchement Surintensité" />
+					<Text TextId="Over Current IDMT Trip" Value="Déclenchement Surintensité IDMT" />
+					<Text TextId="Short Circuit Trip" Value="Déclenchement Court-Circuit" />
+					<Text TextId="Earth Fault Internal Trip" Value="Déclenchement Défaut de Terre Interne" />
+					<Text TextId="Earth Fault External Trip" Value="Déclenchement Défaut de Terre Externe" />
+					<Text TextId="Under Current Trip" Value="Déclenchement Sous-intensité" />
+					<Text TextId="Current Unbalance Trip" Value="Déclenchement par déséquilibre de courant" />
+					<Text TextId="Current Phase Loss Trip" Value="Déclenchement par perte de phase de courant" />
+					<Text TextId="Current Phase Reversal Trip" Value="Déclenchement par inversion de phase de courant" />
+					<Text TextId="Under Voltage Trip" Value="Déclenchement par sous-tension" />
+					<Text TextId="Over Voltage Trip" Value="Déclenchement par surtension" />
+					<Text TextId="Voltage Phase Loss Trip" Value="Déclenchement par perte de phase de tension" />
+					<Text TextId="Voltage Unbalance Trip" Value="Déclenchement par déséquilibre de tension" />
+					<Text TextId="Voltage Phase Reversal Trip" Value="Déclenchement par inversion de phase de tension" />
+					<Text TextId="Under Frequency Trip" Value="Déclenchement sous-fréquence" />
+					<Text TextId="Over Frequency Trip" Value="Déclenchement surfréquence" />
+					<Text TextId="Under Power Trip" Value="Déclenchement sous-puissance" />
+					<Text TextId="Over Power Trip" Value="Déclenchement surpuissance" />
+					<Text TextId="Under PF Trip" Value="Déclenchement sous-PF" />
+					<Text TextId="Interlock - 1 Trip" Value="Interverrouillage - 1 Déclenchement" />
+					<Text TextId="Interlock - 2 Trip" Value="Interverrouillage - 2 Déclenchement" />
+					<Text TextId="Interlock - 3 Trip" Value="Interverrouillage - 3 Déclenchement" />
+					<Text TextId="Interlock - 4 Trip" Value="Interverrouillage - 4 Déclenchement" />
+					<Text TextId="Interlock - 5 Trip" Value="Interverrouillage - 5 Déclenchement" />
+					<Text TextId="Interlock - 6 Trip" Value="Interverrouillage - 6 Déclenchement" />
+					<Text TextId="Interlock - 7 Trip" Value="Interverrouillage - 7 Déclenchement" />
+					<Text TextId="Interlock - 8 Trip" Value="Interverrouillage - 8 Déclenchement" />
+					<Text TextId="Interlock - 9 Trip" Value="Interverrouillage - 9 Déclenchement" />
+					<Text TextId="Interlock - 10 Trip" Value="Interverrouillage - 10 Déclenchement" />
+					<Text TextId="Interlock - 11 Trip" Value="Interverrouillage - 11 Déclenchement" />
+					<Text TextId="Interlock - 12 Trip" Value="Interverrouillage - 12 Déclenchement" />
+					<Text TextId="Temperature Unit 1 - Input 1 Trip" Value="Unité de température 1 - Entrée 1 Déclenchement" />
+					<Text TextId="Temperature Unit 1 - Input 2 Trip" Value="Unité de température 1 - Entrée 2 Déclenchement" />
+					<Text TextId="Temperature Unit 1 - Input 3 Trip" Value="Unité de température 1 - Déclenchement entrée 3" />
+					<Text TextId="Temperature Unit 2 - Input 1 Trip" Value="Unité de température 2 - Déclenchement entrée 1" />
+					<Text TextId="Temperature Unit 2 - Input 2 Trip" Value="Unité de température 2 - Déclenchement entrée 2" />
+					<Text TextId="Temperature Unit 2 - Input 3 Trip" Value="Unité de température 2 - Déclenchement entrée 3" />
+					<Text TextId="Temperature Unit 3 - Input 1 Trip" Value="Unité de température 3 - Déclenchement entrée 1" />
+					<Text TextId="Temperature Unit 3 - Input 2 Trip" Value="Unité de température 3 - Déclenchement entrée 2" />
+					<Text TextId="Temperature Unit 3 - Input 3 Trip" Value="Unité de température 3 - Déclenchement entrée 3" />
+					<Text TextId="Temperature Unit 4 - Input 1 Trip" Value="Unité de température 4 - Déclenchement entrée 1" />
+					<Text TextId="Temperature Unit 4 - Input 2 Trip" Value="Unité de température 4 - Déclenchement entrée 2" />
+					<Text TextId="Temperature Unit 4 - Input 3 Trip" Value="Unité de température 4 - Déclenchement entrée 3" />
+					<Text TextId="Temperature Unit 5 - Input 1 Trip" Value="Unité de température 5 - Déclenchement entrée 1" />
+					<Text TextId="Temperature Unit 5 - Input 2 Trip" Value="Unité de température 5 - Déclenchement entrée 2" />
+					<Text TextId="Temperature Unit 5 - Input 3 Trip" Value="Unité de température 5 - Déclenchement entrée 3" />
+					<Text TextId="Over Temperature Trip" Value="Déclenchement surchauffe" />
+					<Text TextId="AIO Unit 1 - Input 1 Trip" Value="Unité AIO 1 - Entrée 1 Déclenchement" />
+					<Text TextId="AIO Unit 1 - Input 2 Trip" Value="Unité AIO 1 - Entrée 2 Déclenchement" />
+					<Text TextId="AIO Unit 2 - Input 1 Trip" Value="Unité AIO 2 - Entrée 1 Déclenchement" />
+					<Text TextId="AIO Unit 2 - Input 2 Trip" Value="Unité AIO 2 - Entrée 2 Déclenchement" />
+					<Text TextId="Communication Fail Trip" Value="Déclenchement sur défaillance de communication" />        
+					<Text TextId="Excessive Start Time Trip" Value="Déclenchement sur durée de démarrage excessive" />
+    				</Language>
+      			</ExternalTextList>
+		</ApplicationProcess>
+	</ProfileBody>
+</ISO15745Profile>
