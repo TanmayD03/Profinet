@@ -928,12 +928,18 @@ class Controller:
             if r and r.get("name","").lower()==self._station.lower():
                 r["mac"]=raw[6:12]; box.update(r); hit.set()
 
+        try:
+            _ = scapy.conf.L2socket(iface=self._iface, filter="ether proto 0x8892", promisc=False)
+        except ValueError as e:
+            raise ConnectionError(f"Scapy failed to bind adapter '{self._iface}': {e}")
+
         for _ in range(3):
             t=threading.Thread(target=lambda: scapy.sniff(
                 iface=self._iface,filter="ether proto 0x8892",
                 prn=_cb,timeout=self._timeout/3,store=False,
                 stop_filter=lambda _:hit.is_set()),daemon=True)
             t.start(); time.sleep(0.1)
+
             try:
                 scapy.sendp(scapy.Ether(dst="01:0e:cf:00:00:00",
                                         src=":".join(f"{b:02X}" for b in src),
@@ -980,7 +986,10 @@ class Controller:
         if any(self._conn.dev_mac):
             ms=":".join(f"{b:02x}" for b in self._conn.dev_mac)
             if ms!="00:00:00:00:00:00": bpf+=f" and ether src {ms}"
-        self._l2s=_SCAPY.conf.L2socket(iface=self._iface,filter=bpf,promisc=False)
+        try:
+            self._l2s=_SCAPY.conf.L2socket(iface=self._iface,filter=bpf,promisc=False)
+        except ValueError as e:
+            raise ConnectionError(f"Scapy failed to bind adapter: {e}")
 
     def _close_l2(self):
         with self._l2lk:
@@ -1111,14 +1120,16 @@ class Controller:
 
     def _local_addr(self) -> Tuple[str,bytes]:
         try:
-            import netifaces  # type: ignore
+            try: import netifaces  # type: ignore
+            except ImportError: import netifaces2 as netifaces # type: ignore
             for name in netifaces.interfaces():
                 if self._iface.lower() in name.lower():
                     a=netifaces.ifaddresses(name)
                     ip4=a.get(netifaces.AF_INET); lnk=a.get(netifaces.AF_LINK)
                     if ip4 and lnk:
+                        mac_addr = lnk[0]["addr"] if "addr" in lnk[0] else lnk[0].get("peer", "")
                         return (ip4[0]["addr"],
-                                bytes.fromhex(lnk[0]["addr"].replace(":","").replace("-","")))
+                                bytes.fromhex(mac_addr.replace(":","").replace("-","")))
         except ImportError: pass
         try:
             s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
@@ -1128,11 +1139,14 @@ class Controller:
 
     def _mac_for(self) -> bytes:
         try:
-            import netifaces  # type: ignore
+            try: import netifaces  # type: ignore
+            except ImportError: import netifaces2 as netifaces # type: ignore
             for name in netifaces.interfaces():
                 if self._iface.lower() in name.lower():
                     lnk=netifaces.ifaddresses(name).get(netifaces.AF_LINK)
-                    if lnk: return bytes.fromhex(lnk[0]["addr"].replace(":","").replace("-",""))
+                    if lnk:
+                        mac_addr = lnk[0]["addr"] if "addr" in lnk[0] else lnk[0].get("peer", "")
+                        return bytes.fromhex(mac_addr.replace(":","").replace("-",""))
         except Exception: pass
         return uuid.getnode().to_bytes(6,"big")
 
@@ -1215,8 +1229,12 @@ def _get_ctrl() -> Optional[Controller]:
               f"Cycle {_g.cycle_ms:.0f} ms  "
               f"Module {_g._mod_id}: {_g._mod_name}"))
         return _g
-    except Exception as e:
+    except ConnectionError as e:
         print(R(f"  ✗ {e}")); _g=None; return None
+    except Exception as e:
+        print(R(f"  Critical Network Error: {e}"))
+        print(R(f"  (Your adapter '{_cfg['iface']}' may be invalid. Check Npcap and the Settings menu.)"))
+        _g=None; return None
 
 
 def _disconnect():
@@ -1948,7 +1966,9 @@ def main():
     try: import scapy  # type: ignore
     except ImportError: missing.append("scapy")
     try: import netifaces  # type: ignore
-    except ImportError: missing.append("netifaces")
+    except ImportError:
+        try: import netifaces2 as netifaces # type: ignore
+        except ImportError: missing.append("netifaces2")
     if missing:
         clr(); _hdr("Missing Dependencies")
         print(); print(R("  Run these first:"))
