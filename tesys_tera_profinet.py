@@ -188,7 +188,7 @@ def _parse_rt_frame(raw: bytes, in_len: int,
         if struct.unpack_from("!H", raw, pos)[0] != _PN_ETYPE: return None
         pos += 2
         fid = struct.unpack_from("!H", raw, pos)[0]; pos += 2
-        if not (0x0001 <= fid <= 0x7FFF): return None
+        if not (0x0001 <= fid <= 0xFFFF): return None
         if pos + in_len + 4 > len(raw): return None
         payload = raw[pos: pos+in_len]
         iops    = raw[pos+in_len]
@@ -997,7 +997,9 @@ class Controller:
                 if pkt is None: continue
                 raw=bytes(pkt)
                 if len(raw)>16:
-                    fid=struct.unpack_from("!H",raw,14)[0]
+                    pos = 12
+                    if raw[pos:pos+2] == b"\x81\x00": pos += 4
+                    fid=struct.unpack_from("!H",raw,pos+2)[0]
                     if _ALARM_LO<=fid<=_ALARM_HI: self._almq.put_nowait(raw)
                     else: self._capq.put_nowait(raw)
             except OSError:
