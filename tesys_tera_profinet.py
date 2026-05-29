@@ -126,10 +126,11 @@ def _dcp_set_ip_frame(ip: str, subnet: str, gw: str, xid: int = 3) -> bytes:
 
 def _rpc_header(pkt_type: int, op: int, call_id: int,
                 obj_uuid: uuid.UUID, alloc: int = 0) -> bytes:
-    hdr = struct.pack("!BBBB 3s B", 4, pkt_type, 0x20, 0, b'\x10\x00\x00', 0)
+    hdr = struct.pack("!BBBB 3s B", 4, pkt_type, 0x23, 0, b'\x10\x00\x00', 0)
 
     # THE APOLOGY FIX: Restoring the perfectly valid, Well-Known CM Object UUID
-    hdr += uuid.UUID("dea00000-6c97-11d1-8271-006428ce90d2").bytes_le
+    # The Endpoint Mapper Object UUID should be the target's device endpoint (dea00001 or dea00002)
+    hdr += uuid.UUID("dea00001-6c97-11d1-8271-00a02442df7d").bytes_le
     hdr += uuid.UUID("dea00001-6c97-11d1-8271-00a02442df7d").bytes_le
     hdr += obj_uuid.bytes_le
 
@@ -147,13 +148,24 @@ def _rpc_connect_payload(ar_uuid: uuid.UUID, session_key: int,
     ar  = struct.pack("!HH", 0x0101, 40-4)
     ar += struct.pack("!BB", 1, 0)
     ar += struct.pack("!H", 0x0001)       # IOCAR_Single
-    ar += ar_uuid.bytes
+    ar += ar_uuid.bytes_le
     ar += struct.pack("!H", session_key)
     ar += ctrl_mac
-    ar += struct.pack("!I", struct.unpack("!I", socket.inet_aton(ctrl_ip))[0])
-    ar += struct.pack("!H", _RPC_PORT)
+
+    # 16-byte CMInitiatorObjectUUID block which was missing!
+    ar += uuid.UUID("dea00000-6c97-11d1-8271-006428ce90d2").bytes_le
+
     ar += struct.pack("!I", 0x00000008)   # PullModuleAlarmAllowed
-    ar += struct.pack("!HHH", 10, 0x0001, 2)
+    ar += struct.pack("!H", 100) # CMInitiatorActivityTimeoutFactor
+    ar += struct.pack("!H", _RPC_PORT)
+
+    station_name = b"ctrl-pc"
+    ar += struct.pack("!H", len(station_name)) + station_name
+    if len(ar) % 4 != 0: ar += b'\x00' * (4 - (len(ar) % 4))
+
+    # Redo AR block length due to variable station name length!
+    # Pack the Type (0x0101) and the Length (len(ar)-4). The Version (1, 0) is already inside ar[4:]
+    ar = struct.pack("!HH", 0x0101, len(ar)-4) + ar[4:]
 
     def iocr(itype, iref, fid, dlen):
         b  = struct.pack("!HH", 0x0102, 36-4)
@@ -171,8 +183,8 @@ def _rpc_connect_payload(ar_uuid: uuid.UUID, session_key: int,
         b += struct.pack("!HHHH", 1, slot, subslot, 1)
         return b
 
-    icr = iocr(1, 1, 0x8001, in_len)
-    ocr = iocr(2, 2, 0x8002, out_len)
+    icr = iocr(1, 1, 0x8000, in_len)
+    ocr = iocr(2, 2, 0x8001, out_len)
 
     # ExpectedSubmoduleBlockReq
     esm_data = struct.pack("!H I", 1, 0) + struct.pack("!H I H", slot, mod_ident, 0) + struct.pack("!H H I H", 1, subslot, sm_ident, 0) + struct.pack("!H H B B", 1, in_len, 1, _IOPS_GOOD) + struct.pack("!H H B B", 2, out_len, 1, _IOPS_GOOD)
@@ -224,7 +236,7 @@ def _build_read_req(ar_uuid, session_key, slot, subslot, index, seq):
     b  = struct.pack("!HH", 0x0081, 36-4)
     b += struct.pack("!BB", 1, 0)
     b += struct.pack("!H", seq)
-    b += ar_uuid.bytes
+    b += ar_uuid.bytes_le
     b += struct.pack("!IHHHI", 0, slot, subslot, 0, index)
     b += struct.pack("!I", 0x8000)
     b += b"\x00"*24
@@ -235,7 +247,7 @@ def _build_write_req(ar_uuid, session_key, slot, subslot, index, data, seq):
     b  = struct.pack("!HH", 0x0082, 36-4)
     b += struct.pack("!BB", 1, 0)
     b += struct.pack("!H", seq)
-    b += ar_uuid.bytes
+    b += ar_uuid.bytes_le
     b += struct.pack("!IHHHI", 0, slot, subslot, 0, index)
     b += struct.pack("!I", len(data))
     b += b"\x00"*24
@@ -531,8 +543,8 @@ class AlarmEvent:
 class _Conn:
     ar_uuid:  uuid.UUID = field(default_factory=uuid.uuid4)
     sess_key: int  = 0
-    fid_in:   int  = 0x8001
-    fid_out:  int  = 0x8002
+    fid_in:   int  = 0x8000
+    fid_out:  int  = 0x8001
     dev_mac:  bytes = b"\x00"*6
     dev_ip:   str   = ""
     ctrl_mac: bytes = b"\x00"*6
@@ -661,6 +673,11 @@ class Controller:
         self._conn.dev_ip  = info2["ip"]
         self._conn.dev_mac = info2["mac"]
         self._conn.ctrl_ip, self._conn.ctrl_mac = self._local_addr()
+
+        # Spoof Ghost AR recovery - clears any NVM ghost AR locked to this MAC
+        spoof_ghost_ar(self._iface, self._conn.dev_ip, self._conn.dev_mac, timeout=1.0)
+        time.sleep(0.5)
+
         if not self._rpc_connect():
             raise ConnectionError("RPC Connect failed – AR not established.")
         self._open_l2()
@@ -950,6 +967,43 @@ class Controller:
             if box: return box
         return None
 
+    def _rpc_control_req(self, command: int) -> bool:
+        # PrmEnd/AppReady control block has 2 byte padding after the 4 byte header before AR_UUID!
+        ctrl_data = struct.pack("!H", 0x0000) + self._conn.ar_uuid.bytes_le + struct.pack("!H H H H", self._conn.sess_key, 0, command, 0)
+        payload = struct.pack("!H H B B", 0x0110, len(ctrl_data)+2, 1, 0) + ctrl_data
+        hdr = _rpc_header(0, 0x04, self._next_cid(), self._conn.ar_uuid, len(payload))
+        try:
+            s=self._rpc_sock(); s.settimeout(self._timeout)
+            s.sendto(hdr+payload,(self._conn.dev_ip,_RPC_PORT))
+            resp,_=s.recvfrom(65536)
+            return len(resp)>1 and resp[1]==0x02
+        except Exception: return False
+
+    def _rpc_write_mrp(self) -> bool:
+        # Standard MRP configuration write required before PrmEnd.
+        mrp_stub = bytes.fromhex(
+            "0c0100000c0100000c010000000000000c0100000008003c01000000"
+            "00000000000000000000000000000000ffffffffffffffff0000e040000000cc"
+            "0000000000000000000000000000000000000000000000000008003c01000001"
+            "000000000000000000000000000000000000000000008000000080b00000008c"
+            "0000000000000000000000000000000000000000000000000401002c01000000"
+            "0000000000008000000080510213001801000000c3d687fe789e03a1acdbe5bfcbbc27b600000000"
+            "04010038010000000000000000008000000080520211002401000000"
+            "c3d687fe789e03a1acdbe5bfcbbc27b6000000000b6d7270646f6d61696e2d31"
+            "0401001c01000000000000000000800000008071025000080100000000000001"
+        )
+        stub = bytearray(mrp_stub)
+        ar_bytes = self._conn.ar_uuid.bytes_le
+        stub[28:44] = ar_bytes
+        stub[92:108] = ar_bytes
+        hdr = _rpc_header(0, 0x03, self._next_cid(), self._conn.ar_uuid, len(stub))
+        try:
+            s=self._rpc_sock(); s.settimeout(self._timeout)
+            s.sendto(hdr+stub,(self._conn.dev_ip,_RPC_PORT))
+            resp,_=s.recvfrom(65536)
+            return len(resp)>1 and resp[1]==0x02
+        except Exception: return False
+
     def _rpc_connect(self) -> bool:
         payload=_rpc_connect_payload(
             self._conn.ar_uuid,1,self._conn.ctrl_mac,self._conn.ctrl_ip,
@@ -961,7 +1015,25 @@ class Controller:
             s.sendto(hdr+payload,(self._conn.dev_ip,_RPC_PORT))
             resp,_=s.recvfrom(65536)
             if len(resp)>1 and resp[1]==0x02:
-                self._conn.sess_key=1; return True
+                self._conn.sess_key=1
+                # Wait slightly for connect transition
+                time.sleep(0.1)
+
+                # Write MRP
+                if not self._rpc_write_mrp():
+                    pass # Some devices ignore MRP writes and gracefully timeout. Proceed to PrmEnd.
+                time.sleep(0.1)
+
+                # PrmEnd (0x0001)
+                if not self._rpc_control_req(0x0001):
+                    return False
+                time.sleep(0.1)
+
+                # AppReady (0x0002)
+                if not self._rpc_control_req(0x0002):
+                    return False
+
+                return True
             return False
         except Exception: return False
 
@@ -982,6 +1054,15 @@ class Controller:
 
     def _open_l2(self):
         if not _SCAPY_OK: return
+
+        # Open a dummy UDP socket on 34964 to suppress Windows ICMP Port Unreachable packets
+        # which would cause the device to kill the AR connection immediately.
+        try:
+            self._dummy_icmp_blocker = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            self._dummy_icmp_blocker.bind(("", _RPC_PORT))
+        except Exception:
+            self._dummy_icmp_blocker = None
+
         bpf="ether proto 0x8892"
         if any(self._conn.dev_mac):
             ms=":".join(f"{b:02x}" for b in self._conn.dev_mac)
@@ -997,6 +1078,10 @@ class Controller:
                 try: self._l2s.close()
                 except Exception: pass
                 self._l2s=None
+        if hasattr(self, "_dummy_icmp_blocker") and self._dummy_icmp_blocker:
+            try: self._dummy_icmp_blocker.close()
+            except Exception: pass
+            self._dummy_icmp_blocker = None
 
     def _rx_loop(self):
         _thr_high()
@@ -2064,3 +2149,32 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+def spoof_ghost_ar(iface: str, target_ip: str, target_mac: bytes, timeout: float = 3.0) -> bool:
+    """Spoof an AR connection to trigger IEC 61158-6-10 Station Restart to clear ghost AR locks (0x81)."""
+    if not _SCAPY_OK: return False
+    # Use the exact same MAC as we normally use, but generate a dummy new AR UUID
+    # PROFINET specs dictate that a new ConnectReq from same MAC with different AR UUID terminates old ARs
+    dummy_ar_uuid = uuid.uuid4()
+    ctrl_mac = uuid.getnode().to_bytes(6, "big")
+    try:
+        import netifaces2 as netifaces
+        for name in netifaces.interfaces():
+            if iface.lower() in name.lower():
+                lnk = netifaces.ifaddresses(name).get(netifaces.AF_LINK)
+                if lnk:
+                    mac_addr = lnk[0]["addr"] if "addr" in lnk[0] else lnk[0].get("peer", "")
+                    ctrl_mac = bytes.fromhex(mac_addr.replace(":","").replace("-",""))
+    except Exception: pass
+
+    payload = _rpc_connect_payload(dummy_ar_uuid, 1, ctrl_mac, "169.254.0.100", 1, 1, 0x10400000, 0x10400003, 40, 4, 32, 16)
+    hdr = _rpc_header(0, 0x00, 1, dummy_ar_uuid, len(payload))
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.settimeout(timeout)
+        s.sendto(hdr+payload, (target_ip, _RPC_PORT))
+        s.recvfrom(65536)
+        s.close()
+        return True
+    except Exception:
+        return False

@@ -13,11 +13,12 @@ class TestProfinetController(unittest.TestCase):
         self.assertEqual(len(header), 80, "RPC header must be exactly 80 bytes long")
 
         # Verify the well known UUIDs exist in the header (The apology fix)
-        well_known_uuid1 = uuid.UUID("dea00000-6c97-11d1-8271-006428ce90d2").bytes_le
-        well_known_uuid2 = uuid.UUID("dea00001-6c97-11d1-8271-00a02442df7d").bytes_le
+        # We use dea00001 twice (for Object UUID and Interface UUID)
+        well_known_uuid = uuid.UUID("dea00001-6c97-11d1-8271-00a02442df7d").bytes_le
 
-        self.assertIn(well_known_uuid1, header)
-        self.assertIn(well_known_uuid2, header)
+        # Verify header structure flags matches updated 0x23 logic
+        self.assertEqual(header[2], 0x23)
+        self.assertEqual(header.count(well_known_uuid), 2)
         self.assertIn(act_uuid.bytes_le, header)
 
     def test_controller_init(self):
@@ -37,8 +38,13 @@ class TestProfinetController(unittest.TestCase):
 
         # Verify the basic block type (ARBlockReq = 0x0101)
         self.assertEqual(payload[0:2], b'\x01\x01')
-        self.assertIn(ar_uuid.bytes, payload)
+        self.assertIn(ar_uuid.bytes_le, payload)
         self.assertIn(ctrl_mac, payload)
+
+        # CMInitiatorObjectUUID should be at byte 32 of the ARBlock
+        # Which is bytes[36:52] inside payload (after 4 byte block header)
+        cm_uuid = uuid.UUID("dea00000-6c97-11d1-8271-006428ce90d2").bytes_le
+        self.assertIn(cm_uuid, payload)
 
     def test_build_read_req(self):
         ar_uuid = uuid.uuid4()
@@ -46,7 +52,7 @@ class TestProfinetController(unittest.TestCase):
 
         # BlockType 0x0081 (RecordReadReq)
         self.assertEqual(payload[0:2], b'\x00\x81')
-        self.assertIn(ar_uuid.bytes, payload)
+        self.assertIn(ar_uuid.bytes_le, payload)
 
     def test_build_write_req(self):
         ar_uuid = uuid.uuid4()
@@ -55,7 +61,7 @@ class TestProfinetController(unittest.TestCase):
 
         # BlockType 0x0082 (RecordWriteReq)
         self.assertEqual(payload[0:2], b'\x00\x82')
-        self.assertIn(ar_uuid.bytes, payload)
+        self.assertIn(ar_uuid.bytes_le, payload)
         self.assertIn(data, payload)
 
 if __name__ == '__main__':
